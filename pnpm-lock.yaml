@@ -20,6 +20,9 @@ dependencies:
   koa-bodyparser:
     specifier: ^4.3.0
     version: registry.npmmirror.com/koa-bodyparser@4.4.1
+  koa2-cors:
+    specifier: ^2.0.6
+    version: registry.npmmirror.com/koa2-cors@2.0.6
   mysql2:
     specifier: ^2.3.3
     version: registry.npmmirror.com/mysql2@2.3.3
@@ -466,6 +469,13 @@ packages:
     dependencies:
       co: registry.npmmirror.com/co@4.6.0
       koa-compose: registry.npmmirror.com/koa-compose@4.1.0
+    dev: false
+
+  registry.npmmirror.com/koa2-cors@2.0.6:
+    resolution: {integrity: sha512-JRCcSM4lamM+8kvKGDKlesYk2ASrmSTczDtGUnIadqMgnHU4Ct5Gw7Bxt3w3m6d6dy3WN0PU4oMP43HbddDEWg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/koa2-cors/-/koa2-cors-2.0.6.tgz}
+    name: koa2-cors
+    version: 2.0.6
+    engines: {node: '>= 7.6.0'}
     dev: false
 
   registry.npmmirror.com/koa@2.14.2:
