@@ -6,7 +6,7 @@ const {
     OPERATE_SUCCESS,
     UPDATE_SUCCESS } = require("../constants/success-type")
 
-function successHandle(success,ctx,data) {
+function successHandle(success,ctx,data=null) {
   let message = success
   let code = 0
   switch(success) {
