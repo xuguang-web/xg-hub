@@ -28,7 +28,8 @@ function errorHandle(error, ctx) {
 
   ctx.body = {
     code,
-    message
+    message,
+    data: null
   }
 }
 

@@ -15,6 +15,7 @@ async function verifyLogin(ctx, next) {
 
   // 2.判断是否有传入
   if (!name || !password) {
+    
     return ctx.app.emit("error", NAME_OR_PASSWORD_IS_REQUIRED, ctx);
   }
 
