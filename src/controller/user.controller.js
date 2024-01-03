@@ -2,7 +2,7 @@ const userService = require('../service/user.service')
 const {REGISTER_SUCCESS}  = require('../constants/success-type')
 
 class UserController {
-  async create(ctx, next) {
+  async create(ctx) {
     // 1.获取传递过来的参数
     const user = ctx.request.body
   

@@ -3,7 +3,7 @@ const mysql2 = require('mysql2')
 const connections = mysql2.createPool({
   host: 'localhost',
   port: 3306,
-  database: 'coderhub',
+  database: 'xg-cms',
   user: 'root',
   password: 'xuguang970511'
 })

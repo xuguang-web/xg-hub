@@ -4,10 +4,12 @@ const {
   NAME_IS_NOT_EXISTS,
   NAME_OR_PASSWORD_IS_REQUIRED,
   PASSWORD_IS_INCORRENT,
-  UNAUTHORIZATION
+  UNAUTHORIZATION,
+  EXPIRED
 } = require("../constants/error-types");
 const userService = require("../service/user.service");
 const { md5password } = require("../utils/password-handle");
+const { validTime  } = require("../utils/format");
 
 async function verifyLogin(ctx, next) {
   // 1.获取用户名和密码
@@ -15,11 +17,10 @@ async function verifyLogin(ctx, next) {
 
   // 2.判断是否有传入
   if (!name || !password) {
-    
     return ctx.app.emit("error", NAME_OR_PASSWORD_IS_REQUIRED, ctx);
   }
 
-  // 3.查询用户是否存在
+  // 3.查询用户信息(1.判断用户是否存在,2.判断时间是否还在有效期)
   const users = await userService.getUserByName(name);
   const user = users[0];
   if (!user) {
@@ -31,23 +32,28 @@ async function verifyLogin(ctx, next) {
     return ctx.app.emit("error", PASSWORD_IS_INCORRENT, ctx);
   }
 
-  // 5.登录成功
-  ctx.user = user;
+  // 5.判断时间是否还在有效期
+  const {effectBeginTime,effectEndTime} = user
+  const flag = validTime(effectBeginTime,effectEndTime)
+  if(!flag) {
+     return ctx.app.emit("error",EXPIRED, ctx);
+  }
 
+  // 6.登录成功
+  ctx.user = user;
   await next();
 }
 
 async function verifyAuth(ctx, next) {
-  console.log("验证授权的middleware~");
   // 1.获取token
   const authorization = ctx.headers.authorization;
   if (!authorization) {
     return ctx.app.emit("error", UNAUTHORIZATION, ctx);
   }
+  // 2.取出token
   const token = authorization.replace("Bearer ", "");
-  console.log(token)
 
-  // 2.验证token(id/name/iat/exp)
+  // 3.验证token(id/name/iat/exp)
   try {
     const result = jwt.verify(token, PUBLIC_KEY, {
       algorithms: ["RS256"]
@@ -55,7 +61,6 @@ async function verifyAuth(ctx, next) {
     ctx.user = result;
     await next();
   } catch (err) {
-    console.log(err)
     ctx.app.emit('error', UNAUTHORIZATION, ctx);
   }
 }
