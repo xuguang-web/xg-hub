@@ -7,8 +7,6 @@ const {
   BEGIN_TIME_LOWER_END_TIME,
 } = require("../constants/error-types");
 const userService = require("../service/user.service");
-const { md5password } = require("../utils/password-handle");
-const { compareTime } = require("../utils/format");
 
 async function verifyUser(ctx, next) {
   // 1.取出用户名和密码
