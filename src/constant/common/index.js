@@ -19,6 +19,10 @@ const UPDATE_SUCCESS = {
 const QUERY_SUCCESS = {
     message:'查询成功~'
 };
+const ID_IS_REQUIRED = {
+    message:"ID不能为空~",
+    code: -1
+}
 
 module.exports = {
   LOGIN_SUCCESS,
@@ -28,4 +32,5 @@ module.exports = {
   OPERATE_SUCCESS,
   UPDATE_SUCCESS,
   QUERY_SUCCESS,
+  ID_IS_REQUIRED
 };

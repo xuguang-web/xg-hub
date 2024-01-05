@@ -1,6 +1,6 @@
 const departmentService = require("../service/department.service");
 const { buildTreeData } = require("../utils/data");
-const { ADD_SCUUESS,QUERY_SUCCESS } = require("../constant");
+const { ADD_SCUUESS,QUERY_SUCCESS,UPDATE_SUCCESS } = require("../constant");
 
 class DepartmentController {
   async getTreeData(ctx) {
@@ -17,7 +17,18 @@ class DepartmentController {
       ctx.app.emit("info", ADD_SCUUESS, ctx,res);
       await next();
     } catch (err) {
-      console.log('%c [  ]-21', 'font-size:13px; background:pink; color:#bf2c9f;', err)
+      console.log(err)
+    }
+  }
+
+  async updateTreeData(ctx,next) {
+    const { id,name,leader,parentId} = ctx.request.body
+    try {
+      const res = await departmentService.updateTreeData(name, leader, parentId,id);
+      ctx.app.emit("info", UPDATE_SUCCESS, ctx,res);
+      await next();
+    } catch (err) {
+      console.log(err)
     }
   }
 }

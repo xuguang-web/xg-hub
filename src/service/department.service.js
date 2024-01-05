@@ -7,6 +7,12 @@ class DepartmentService {
     return result;
   }
 
+  async getDataByName(name) {
+    const statement = "SELECT * FROM department WHERE name = ?;";
+    const [result] = await conn.execute(statement,[name]);
+    return result;
+  }
+
   async addTreeData(name, leader, parentId) {
     const statement =
       "INSERT INTO `department` (name,leader,parentId) VALUES (?, ?, ?);";
