@@ -1,5 +1,5 @@
 const { PUBLIC_KEY, PRIVATE_KEY } = require("../app/config");
-const { LOGIN_SUCCESS } = require("../constants/success-type");
+const { LOGIN_SUCCESS } = require("../constant");
 const jwt = require("jsonwebtoken");
 
 class LoginController {
@@ -11,7 +11,7 @@ class LoginController {
       expiresIn: 30 * 24 * 60 * 60,
     });
 
-    ctx.app.emit("success", LOGIN_SUCCESS, ctx, {
+    ctx.app.emit("info", LOGIN_SUCCESS, ctx, {
       id,
       name,
       token,

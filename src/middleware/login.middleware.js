@@ -6,7 +6,7 @@ const {
   PASSWORD_IS_INCORRENT,
   UNAUTHORIZATION,
   EXPIRED
-} = require("../constants/error-types");
+} = require("../constant");
 const userService = require("../service/user.service");
 const { md5password } = require("../utils/password-handle");
 const { validTime  } = require("../utils/format");
@@ -17,26 +17,26 @@ async function verifyLogin(ctx, next) {
 
   // 2.判断是否有传入
   if (!name || !password) {
-    return ctx.app.emit("error", NAME_OR_PASSWORD_IS_REQUIRED, ctx);
+    return ctx.app.emit("info", NAME_OR_PASSWORD_IS_REQUIRED, ctx);
   }
 
   // 3.查询用户信息(1.判断用户是否存在,2.判断时间是否还在有效期)
   const users = await userService.getUserByName(name);
   const user = users[0];
   if (!user) {
-    return ctx.app.emit("error", NAME_IS_NOT_EXISTS, ctx);
+    return ctx.app.emit("info", NAME_IS_NOT_EXISTS, ctx);
   }
 
   // 4.判断密码是否正确
   if (md5password(password) !== user.password) {
-    return ctx.app.emit("error", PASSWORD_IS_INCORRENT, ctx);
+    return ctx.app.emit("info", PASSWORD_IS_INCORRENT, ctx);
   }
 
   // 5.判断时间是否还在有效期
   const {effectBeginTime,effectEndTime} = user
   const flag = validTime(effectBeginTime,effectEndTime)
   if(!flag) {
-     return ctx.app.emit("error",EXPIRED, ctx);
+     return ctx.app.emit("info",EXPIRED, ctx);
   }
 
   // 6.登录成功
@@ -47,8 +47,10 @@ async function verifyLogin(ctx, next) {
 async function verifyAuth(ctx, next) {
   // 1.获取token
   const authorization = ctx.headers.authorization;
+
+  
   if (!authorization) {
-    return ctx.app.emit("error", UNAUTHORIZATION, ctx);
+    return ctx.app.emit("info", UNAUTHORIZATION, ctx);
   }
   // 2.取出token
   const token = authorization.replace("Bearer ", "");
@@ -61,7 +63,7 @@ async function verifyAuth(ctx, next) {
     ctx.user = result;
     await next();
   } catch (err) {
-    ctx.app.emit('error', UNAUTHORIZATION, ctx);
+    ctx.app.emit('info', UNAUTHORIZATION, ctx);
   }
 }
 

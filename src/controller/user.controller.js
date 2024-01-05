@@ -1,5 +1,5 @@
 const userService = require('../service/user.service')
-const {REGISTER_SUCCESS}  = require('../constants/success-type')
+const {REGISTER_SUCCESS}  = require('../constant')
 
 class UserController {
   async create(ctx) {
@@ -8,7 +8,7 @@ class UserController {
   
     // 2.将user存储到数据库中
     await userService.create(user)
-    ctx.app.emit("success", REGISTER_SUCCESS, ctx);
+    ctx.app.emit("info", REGISTER_SUCCESS, ctx);
   }
 }
 

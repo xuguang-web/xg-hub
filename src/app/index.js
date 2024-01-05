@@ -2,8 +2,9 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const cors = require('koa2-cors')
 const registerRoutes = require('../router')
-const errorHandle = require('./error-handle')
-const successHandle = require('./success-handle')
+const infoHandle = require('./info-handle')
+
+const test = require('../constant')
 
 const app = new Koa()
 
@@ -12,7 +13,5 @@ app.use(cors());
 
 registerRoutes(app)
 
-app.on('error', errorHandle)
-app.on('success',successHandle)
-
+app.on('info', infoHandle)
 module.exports = app

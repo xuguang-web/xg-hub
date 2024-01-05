@@ -13,6 +13,13 @@ class DepartmentService {
     const [result] = await conn.execute(statement, [name, leader, parentId]);
     return result;
   }
+
+  async updateTreeData(name, leader, parentId,id) {
+    const statement =
+    "UPDATE `department` SET name = ?,leader = ? , parentId = ?  WHERE id = ?;";
+      const [result] = await conn.execute(statement, [name, leader, parentId,id]);
+      return result;
+  }
 }
 
 module.exports = new DepartmentService();
