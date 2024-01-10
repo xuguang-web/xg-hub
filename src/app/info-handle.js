@@ -1,10 +1,10 @@
-function infoHandle(info, ctx ,data = null) {
-  let message = info?.message || ""
-  let code = info?.code || 0
+function infoHandle(info, ctx, data = null) {
+  let message = info?.message || "";
+  let code = info?.code || 0;
   ctx.body = {
     code,
     message,
-    data
-  }
+    data,
+  };
 }
-module.exports = infoHandle
+module.exports = infoHandle;
