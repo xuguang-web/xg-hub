@@ -3,6 +3,11 @@ const { OPERATE_SUCCESS } = require("../constant");
 
 class fileController {
   async create(ctx) {
+    console.log(
+      "%c [  ]-7",
+      "font-size:13px; background:pink; color:#bf2c9f;",
+      ctx
+    );
     const { id } = ctx.user;
     const file = ctx.request.file;
     const { filename, mimetype, size } = file;

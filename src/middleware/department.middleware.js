@@ -45,10 +45,6 @@ async function handleUpdateDepartment(ctx, next) {
   if (!flag) {
     return ctx.app.emit("info", ID_IS_NOT_EXISTS, ctx);
   }
-  flag = await handleDepartmentNameRepeat(name, ctx);
-  if (!flag) {
-    return;
-  }
   await next();
 }
 

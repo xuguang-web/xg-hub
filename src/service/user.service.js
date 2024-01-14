@@ -11,7 +11,6 @@ class UserService {
       departmentId,
       avatarUrl,
     } = user;
-
     const statement =
       "INSERT INTO `users` (name, password,cellphone,effectBeginTime,effectEndTime,departmentId,avatarUrl) VALUES (?,?,?,?,?,?,?);";
     const result = await conn.execute(statement, [
